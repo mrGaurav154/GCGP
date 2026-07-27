@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #0D9488;
+  --color-primary-dark: #0F766E;
+  --color-secondary: #D97706;
+  --color-accent: #E11D48;
+  --color-success: #16A34A;
+  --color-bg: #FAF9F6;
+  --color-bg-dark: #1C1917;
+  --color-text-primary: #1C1917;
+  --color-text-secondary: #57534E;
+
+  --font-display: 'Sora', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, .font-display { font-family: var(--font-display); }
+
+::selection { background: var(--color-primary); color: white; }
+
+.dark body, .dark { background-color: var(--color-bg-dark); color: #E2E8F0; }
+.dark .bg-bg { background-color: var(--color-bg-dark) !important; }
+.dark .glass { background: rgba(15,23,42,0.6); border-color: rgba(255,255,255,0.08); }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #F5F5F4; }
+::-webkit-scrollbar-thumb { background: #A8A29E; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #78716C; }
+
+.text-gradient {
+  background: linear-gradient(135deg, #0D9488 0%, #0284C7 50%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient-primary { background: linear-gradient(135deg, #0D9488 0%, #0F766E 100%); }
+
+.bg-gradient-radial-glow {
+  background: radial-gradient(circle at 30% 20%, rgba(13,148,136,0.12), transparent 45%),
+              radial-gradient(circle at 80% 60%, rgba(14,165,233,0.10), transparent 45%),
+              radial-gradient(circle at 50% 90%, rgba(59,130,246,0.08), transparent 40%);
+}
+
+.glass {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.6);
+}
+
+.glass-dark {
+  background: rgba(15,23,42,0.75);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.frosted-gradient-bar {
+  background: linear-gradient(135deg, #022C22 0%, #064E3B 55%, #0F172A 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  box-shadow: 0 25px 60px -15px rgba(6, 78, 59, 0.5), 0 10px 25px -5px rgba(2, 44, 34, 0.3);
+}
+
+.card-hover { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, border-color .35s ease; }
+.card-hover:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 24px 48px -12px rgba(13,148,136,0.25);
+  border-color: var(--color-primary);
+}
+
+/* Per-card accent color, set inline via style={{ '--accent': '#hex' }}.
+   Lets a grid of cards each light up with a different brand color on hover
+   instead of all sharing the same primary blue. */
+.accent-card {
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, border-color .35s ease, background-color .35s ease;
+}
+.accent-card:hover,
+.accent-card:active {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background-color: color-mix(in srgb, var(--accent) 5%, white);
+  box-shadow: 0 24px 48px -14px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.accent-icon {
+  background-color: color-mix(in srgb, var(--accent) 12%, white);
+  color: var(--accent);
+  transition: background-color .35s ease, color .35s ease, transform .35s ease;
+}
+.accent-card:hover .accent-icon,
+.accent-card:active .accent-icon {
+  background-color: var(--accent);
+  color: white;
+  transform: scale(1.08) rotate(-4deg);
+}
+.accent-title { transition: color .35s ease; }
+.accent-card:hover .accent-title,
+.accent-card:active .accent-title { color: var(--accent); }
+
+.btn-glow { box-shadow: 0 0 0 0 rgba(13,148,136,0.6); transition: box-shadow .3s ease, transform .3s ease; }
+.btn-glow:hover { box-shadow: 0 8px 30px rgba(13,148,136,0.45); transform: translateY(-2px); }
+
+.marquee-track { animation: marquee 28s linear infinite; }
+.marquee-group:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Client logo marquee: grayscale by default, full color only in a band
+   through the middle of the strip, so each logo "lights up" as it passes
+   through center — like scatterpie.io's client strip. */
+.clients-gray-layer { filter: grayscale(1) opacity(0.5); }
+.clients-color-layer {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    transparent 34%,
+    black 46%,
+    black 54%,
+    transparent 66%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    transparent 34%,
+    black 46%,
+    black 54%,
+    transparent 66%,
+    transparent 100%
+  );
+}
+
+@keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-14px) rotate(3deg); } }
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+/* Industry tiles: flat gray by default, fill with a per-card accent color
+   on hover, text flips to white and a "Learn More" CTA fades in. */
+.industry-tile {
+  background-color: #F5F5F4;
+  transition: background-color .4s ease, transform .4s ease, box-shadow .4s ease;
+}
+.industry-tile:hover,
+.industry-tile:focus-visible {
+  background-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -16px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.industry-tile-icon {
+  background-color: #fff;
+  color: var(--accent);
+  transition: transform .4s ease;
+}
+.industry-tile:hover .industry-tile-icon { transform: scale(1.06); }
+.industry-tile-title { color: var(--color-text-primary); transition: color .35s ease; }
+.industry-tile:hover .industry-tile-title { color: #fff; }
+.industry-tile-desc { color: var(--color-text-secondary); transition: color .35s ease; }
+.industry-tile:hover .industry-tile-desc { color: rgba(255,255,255,0.88); }
+.industry-tile-cta {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease, max-height .35s ease, margin-top .35s ease;
+  margin-top: 0;
+  overflow: hidden;
+}
+.industry-tile:hover .industry-tile-cta,
+.industry-tile:focus-visible .industry-tile-cta {
+  opacity: 1;
+  max-height: 60px;
+  margin-top: 1.25rem;
+  transform: translateY(0);
+}
+
+@keyframes float-slow { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-22px); } }
+.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+
+@keyframes pulse-ring { 0% { transform: scale(0.9); opacity: 0.7; } 70% { transform: scale(1.4); opacity: 0; } 100% { opacity: 0; } }
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--pulse-color, var(--color-primary));
+  animation: pulse-ring 2.2s cubic-bezier(0.4,0,0.6,1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.section-pad { padding-top: clamp(4rem, 8vw, 7rem); padding-bottom: clamp(4rem, 8vw, 7rem); }
+.container-px { padding-left: clamp(1.25rem, 5vw, 5rem); padding-right: clamp(1.25rem, 5vw, 5rem); }
